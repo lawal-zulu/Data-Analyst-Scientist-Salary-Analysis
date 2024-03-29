@@ -1,1 +1,1 @@
-# Data-Analyst-Scientist-Salary-Analysis
+# Data Analyst & Scientist Salary Analysis and Estimator
