@@ -43,20 +43,33 @@ set experience_level = case when years_of_experience <= 2 then 'entry level'
 else 'Senior level';
 ```   
 3. Corrected spellings in the education column
-```sql
+`` `sql
+-- This SQL code performs the following actions:
+Creates a temporary result set named "filter" containing rows from the "salary" table where the "Job_Title" column contains "Data Scientist" or "Data Analyst".
+Selects the "education" column from the "filter" result set.
+Uses a CASE expression to categorize education levels:
+   - If "education" contains "Bachelor", it's converted to "Bachelor's Degree".
+   - If "education" contains "Master", it's converted to "Master's Degree".
+   - Otherwise, the original "education" value remains unchanged.
 with filter as (select * from salary
 WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
 select education,
-case when education like '%Bachelor%' then 'Bachelor''s Degree'
-     when education like '%Master%' then 'Master''s Degree'
-	 else education
-end
-from filter ;
+  CASE
+    WHEN education LIKE '%Bachelor%' THEN 'Bachelor''s Degree'
+    WHEN education LIKE '%Master%' THEN 'Master''s Degree'
+    ELSE education
+  END
+FROM filter ;
 
-update Salary
-set Education= case when education like '%Bachelor%' then 'Bachelor''s Degree'
-     when education like '%Master%' then 'Master''s Degree'
-	 else education ;
+-- This SQL code updates the "Education" column in the "Salary" table using a similar CASE expression.
+
+UPDATE Salary
+SET Education =
+  CASE
+    WHEN education LIKE '%Bachelor%' THEN 'Bachelor''s Degree'
+    WHEN education LIKE '%Master%' THEN 'Master''s Degree'
+    ELSE education
+  END ;
 ```
 5. Created a new column “Age group” for analytical and visualization purposes
 6. Simplified Job title column to just Data analyst and Data scientists for analytical and visualization purposes
