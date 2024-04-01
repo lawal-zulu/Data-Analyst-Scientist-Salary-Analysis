@@ -21,13 +21,43 @@ I came across this custom or hypothetical dataset of salaries of different profe
  The data was efficiently cleaned and made more usable using Microsoft SQL Server. Some of the transformation and cleaning ai effected are as follow;
 1. Filtering out my data for only data scientists and analyst roles
   ```sql
-select Job_Title,count(*) from Salary
 select * from Salary
 where Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst'
 ```
 2. Created a category for experience level based on years of experience
-   
-4. Corrected spellings in job title and education columns
+   ``` sql
+   with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select job_title,years_of_experience,
+case when years_of_experience <= 2 then 'Entry level'
+     when years_of_experience <= 5 then 'Mid level'
+else 'Senior level'
+end as experience_level
+from filter;
+
+alter table salary
+add experience_level nvarchar(50);
+
+update salary
+set experience_level = case when years_of_experience <= 2 then 'entry level'
+     when years_of_experience <= 5 then 'Mid level'
+else 'Senior level';
+```   
+3. Corrected spellings in the education column
+```sql
+with filter as (select * from salary
+WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select education,
+case when education like '%Bachelor%' then 'Bachelor''s Degree'
+     when education like '%Master%' then 'Master''s Degree'
+	 else education
+end
+from filter ;
+
+update Salary
+set Education= case when education like '%Bachelor%' then 'Bachelor''s Degree'
+     when education like '%Master%' then 'Master''s Degree'
+	 else education ;
+```
 5. Created a new column “Age group” for analytical and visualization purposes
 6. Simplified Job title column to just Data analyst and Data scientists for analytical and visualization purposes
 
