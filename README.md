@@ -21,55 +21,44 @@ I came across this custom or hypothetical dataset of salaries of different profe
  The data was efficiently cleaned and made more usable using Microsoft SQL Server. Some of the transformation and cleaning ai effected are as follow;
 1. Filtering out my data for only data scientists and analyst roles
   ```sql
+--This SQL code performs the following actions: Creates a temporary result set named "filter" containing rows from the "salary" table where the "Job_Title" column contains "Data Scientist" or "Data Analyst".
 select * from Salary
 where Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst'
 ```
 2. Created a category for experience level based on years of experience
-   ``` sql
+   ```sql
    with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
-select job_title,years_of_experience,
-case when years_of_experience <= 2 then 'Entry level'
+   select job_title,years_of_experience,
+   case when years_of_experience <= 2 then 'Entry level'
      when years_of_experience <= 5 then 'Mid level'
-else 'Senior level'
-end as experience_level
-from filter;
+   else 'Senior level'
+   end as experience_level
+   from filter;
 
-alter table salary
-add experience_level nvarchar(50);
+   alter table salary
+   add experience_level nvarchar(50);
 
-update salary
-set experience_level = case when years_of_experience <= 2 then 'entry level'
+   update salary
+   set experience_level = case when years_of_experience <= 2 then 'entry level'
      when years_of_experience <= 5 then 'Mid level'
-else 'Senior level';
+   else 'Senior level';
 ```   
 3. Corrected spellings in the education column
-`` `sql
--- This SQL code performs the following actions:
-Creates a temporary result set named "filter" containing rows from the "salary" table where the "Job_Title" column contains "Data Scientist" or "Data Analyst".
-Selects the "education" column from the "filter" result set.
-Uses a CASE expression to categorize education levels:
-   - If "education" contains "Bachelor", it's converted to "Bachelor's Degree".
-   - If "education" contains "Master", it's converted to "Master's Degree".
-   - Otherwise, the original "education" value remains unchanged.
-with filter as (select * from salary
-WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
-select education,
-  CASE
-    WHEN education LIKE '%Bachelor%' THEN 'Bachelor''s Degree'
-    WHEN education LIKE '%Master%' THEN 'Master''s Degree'
-    ELSE education
-  END
-FROM filter ;
+   ```sql
+   with filter as (select * from salary
+   WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+   select education,
+   case when education like '%Bachelor%' then 'Bachelor''s Degree'
+     when education like '%Master%' then 'Master''s Degree'
+	  else education
+   end
+   from filter;
 
--- This SQL code updates the "Education" column in the "Salary" table using a similar CASE expression.
-
-UPDATE Salary
-SET Education =
-  CASE
-    WHEN education LIKE '%Bachelor%' THEN 'Bachelor''s Degree'
-    WHEN education LIKE '%Master%' THEN 'Master''s Degree'
-    ELSE education
-  END ;
+   update Salary
+   set Education= case when education like '%Bachelor%' then 'Bachelor''s Degree'
+     when education like '%Master%' then 'Master''s Degree'
+   else education
+   end;
 ```
 5. Created a new column “Age group” for analytical and visualization purposes
 6. Simplified Job title column to just Data analyst and Data scientists for analytical and visualization purposes
