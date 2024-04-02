@@ -94,7 +94,6 @@ case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
 	 else job_title
 	 end as Job_title
 from filter;
-
 update Salary
 set Job_Title = case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
      when Job_Title = 'Junior Data Scientist' then 'Data Scientist'
@@ -104,6 +103,8 @@ set Job_Title = case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
 	 end
 	 WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst';
 ```
+This is waht the data looked liked after cleaning and transformation:
+![](Data_after_cleaning.png)
 
 
 
