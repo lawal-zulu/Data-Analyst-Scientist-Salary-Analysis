@@ -45,12 +45,11 @@ where Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst'
 ```   
 3. Corrected spellings in the education column
    ```sql
-   with filter as (select * from salary
-   WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+   with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
    select education,
    case when education like '%Bachelor%' then 'Bachelor''s Degree'
      when education like '%Master%' then 'Master''s Degree'
-	  else education
+   else education
    end
    from filter;
 
@@ -60,8 +59,52 @@ where Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst'
    else education
    end;
 ```
-5. Created a new column “Age group” for analytical and visualization purposes
-6. Simplified Job title column to just Data analyst and Data scientists for analytical and visualization purposes
+4. Created a new column “Age group” for analytical and visualization purposes
+   ```sql
+   select age,
+   case
+    when age>=20 and age<=30 then '20-30'
+	when age>=31 and age<=40 then '31-40'
+	when age>=41 and age<=50 then '41-50'
+	when age>=51 and age<=60 then '51-60'
+	else '60+'
+	end AS Age_group
+   from Salary;
+
+   alter table salary
+   add Age_group nvarchar (15);
+
+   update Salary
+   set Age_group =Case 
+   when age>=20 and age<=30 then '20-30'
+	when age>=31 and age<=40 then '31-40'
+	when age>=41 and age<=50 then '41-50'
+	when age>=51 and age<=60 then '51-60'
+	else '60+'
+	end;
+  ```
+5. Simplified Job title column to just Data analyst and Data scientists for analytical and visualization purposes
+```sql
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select Job_title,
+case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
+     when Job_Title = 'Junior Data Scientist' then 'Data Scientist'
+	 when Job_Title = 'Senior Data Analyst' then 'Data Analyst'
+	 when Job_Title = 'Senior Data Scientist' then 'Data Scientist'
+	 else job_title
+	 end as Job_title
+from filter;
+
+update Salary
+set Job_Title = case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
+     when Job_Title = 'Junior Data Scientist' then 'Data Scientist'
+	 when Job_Title = 'Senior Data Analyst' then 'Data Analyst'
+	 when Job_Title = 'Senior Data Scientist' then 'Data Scientist'
+	 else job_title
+	 end
+	 WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst';
+```
+
 
 
 
