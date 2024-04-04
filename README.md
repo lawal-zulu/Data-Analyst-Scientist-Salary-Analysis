@@ -164,7 +164,7 @@ The projects report is made up of 3 pages;
 1.	Home page: From this page you can navigate to the other 2 pages by clicking their buttons.
 2.	Report page: This page shows the visualization of our analysis. This page gives the option of selecting either the report for Data analyst or scientist role and also a menu to navigate to the other 2 pages.
 Analyst page                                                                       scientist page
-![]()                                                                   Dashboard image.
+![](Dashboard_analyst.PNG)                                                         ![](Dashboard_scientist.PNG)
 
 Features.
 •	The home, report and estimator buttons are to navigate pages
