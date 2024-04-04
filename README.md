@@ -44,20 +44,20 @@ where Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst'
    else 'Senior level';
 ```   
 3. Corrected spellings in the education column
-   ```sql
+   ``` sql
    with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
    select education,
    case when education like '%Bachelor%' then 'Bachelor''s Degree'
      when education like '%Master%' then 'Master''s Degree'
    else education
    end
-   from filter;
+   from filter ;
 
    update Salary
    set Education= case when education like '%Bachelor%' then 'Bachelor''s Degree'
      when education like '%Master%' then 'Master''s Degree'
    else education
-   end;
+   end ;
 ```
 4. Created a new column “Age group” for analytical and visualization purposes
    ```sql
@@ -92,19 +92,89 @@ case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
 	 when Job_Title = 'Senior Data Analyst' then 'Data Analyst'
 	 when Job_Title = 'Senior Data Scientist' then 'Data Scientist'
 	 else job_title
-	 end as Job_title
-from filter;
+end 
+from filter ;
+
 update Salary
 set Job_Title = case when Job_Title = 'Junior Data Analyst' then 'Data Analyst'
      when Job_Title = 'Junior Data Scientist' then 'Data Scientist'
 	 when Job_Title = 'Senior Data Analyst' then 'Data Analyst'
 	 when Job_Title = 'Senior Data Scientist' then 'Data Scientist'
 	 else job_title
-	 end
-	 WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst';
+end ;
 ```
-This is waht the data looked liked after cleaning and transformation:
+This is what the data looked liked after cleaning and transformation:
 ![](Data_after_cleaning.png)
+
+# EXPLORATORY DATA ANALYSIS
+EDA involved exploring the Salary Data questions such as
+
+What is the average salary for entry, mid, and senior roles?
+```sql
+--This code can be retrofited to analyze for Data scientist roles by switching Data Analyst with Data Scientist in the Having clause.
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select job_title,experience_level,round(AVG(salary),0) from filter
+group by job_title,experience_level
+having job_title = 'Data Analyst' and experience_level = 'Entry level' ;
+---mid level
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select job_title,experience_level,round(AVG(salary),0) from filter
+group by job_title,experience_level
+having job_title = 'Data Analyst' and experience_level = 'mid level' ;
+---Senior level
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select job_title,experience_level,round(AVG(salary),0) from filter
+group by job_title,experience_level
+having job_title = 'Data Analyst' and experience_level = 'Senior level' ;
+```
+What is the average salary based on gender for each role?
+```sql
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select Gender,round(AVG(salary),0)
+from filter
+group by Gender,Job_Title
+having Job_Title = 'Data Analyst' ;
+```
+What is the average salary based on education for each role?
+```sql
+--This code can be retrofited to analyze for Data scientist roles by switching Data Analyst with Data Scientist in the Having clause.
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select education,round(avg(salary),0) as average_salary
+from filter
+group by Job_Title,Education 
+having Job_Title = 'Data Analyst' ;
+```
+What is the average salary in each country based on the roles?
+``` sql
+with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
+select Country,round(AVG(salary),0)
+from filter
+group by Country, Job_Title
+having Job_Title = 'Data Analyst' ;
+```
+
+# FINDINGS
+- There’s not much disparity in the salary gender wise.
+- Entry level roles tend to have lesser average salary compared to mid and senior roles.
+- Data analyst in the Uk earn more compared to Data analysts in the other countries.
+- Data Scientist in Australia earn more compared to Data Scientists in the other countries.
+
+# VISUALIZATION
+The projects report is made up of 3 pages;
+1.	Home page: From this page you can navigate to the other 2 pages by clicking their buttons.
+2.	Report page: This page shows the visualization of our analysis. This page gives the option of selecting either the report for Data analyst or scientist role and also a menu to navigate to the other 2 pages.
+Analyst page                                                                       scientist page
+![]()                                                                   Dashboard image.
+
+Features.
+•	The home, report and estimator buttons are to navigate pages
+•	The data analyst and scientist buttons are to filter the report based on this roles
+3.	Estimator page: This is a page I created for fun to give the functionality of getting your expected average salary based on a couple of criteria such as role, experience level, education and country.
+Estimator image
+Features
+•	Single gauge chart showing the estimate salary for visual effect.
+•	Filter Menu to select criteria based on personal details
+  You can interact with the report here (power bi publish link)
 
 
 
