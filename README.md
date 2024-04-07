@@ -130,6 +130,7 @@ having job_title = 'Data Analyst' and experience_level = 'Senior level' ;
 ```
 What is the average salary based on gender for each role?
 ```sql
+--This code can be retrofited to analyze for Data scientist roles by switching Data Analyst with Data Scientist in the Having clause.
 with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
 select Gender,round(AVG(salary),0)
 from filter
@@ -147,6 +148,7 @@ having Job_Title = 'Data Analyst' ;
 ```
 What is the average salary in each country based on the roles?
 ``` sql
+--This code can be retrofited to analyze for Data scientist roles by switching Data Analyst with Data Scientist in the Having clause.
 with filter as (select * from salary WHERE Job_Title like '%Data Scientist' or Job_Title like '%Data Analyst')
 select Country,round(AVG(salary),0)
 from filter
@@ -169,12 +171,13 @@ The projects report is made up of 3 pages;
 :----------------------------------------------:|:-------------------------------------------------:                                                                
 ![](Dashboard_analyst.PNG)                      |   ![](Dashboard_scientist.PNG)
 
-Features.
+### Features.
 - The home, report and estimator buttons are to navigate pages
 - The data analyst and scientist buttons are to filter the report based on this roles
 3.	Estimator page: This is a page I created for fun to give the functionality of getting your expected average salary based on a couple of criteria such as role, experience level, education and country.
-![]()
-Features
+![](Estimator.PNG)
+
+### Features.
 - Single gauge chart showing the estimate salary for visual effect.
 - Filter Menu to select criteria based on personal details
 
