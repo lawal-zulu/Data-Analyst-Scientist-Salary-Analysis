@@ -16,6 +16,7 @@ _Note: This a dummy data set for me to use to showcase my skills and capabilitie
 I came across this custom or hypothetical dataset of salaries of different professionals including data analyst and scientists on Kaggle which I found really interesting and when I got an idea of what I could create with the data set I downloaded the CSV file. 
 ## The data contains just one sheet with 9 columns and 6703 rows.
 ![](Data_sourcing.PNG)
+Here's a link to the Dataste on Kaggle:(https://www.kaggle.com/datasets/veronikanikaaa/salary-data-based-on-country-and-race)
 
 # DATA CLEANING AND TRANSFORMATION
  The data was efficiently cleaned and made more usable using Microsoft SQL Server. Some of the transformation and cleaning ai effected are as follow;
@@ -163,18 +164,21 @@ having Job_Title = 'Data Analyst' ;
 The projects report is made up of 3 pages;
 1.	Home page: From this page you can navigate to the other 2 pages by clicking their buttons.
 2.	Report page: This page shows the visualization of our analysis. This page gives the option of selecting either the report for Data analyst or scientist role and also a menu to navigate to the other 2 pages.
-Analyst page                                                                       scientist page
-![](Dashboard_analyst.PNG)                                                         ![](Dashboard_scientist.PNG)
+   
+   Data Analyst page                            |      Data Scientist page
+:----------------------------------------------:|:-------------------------------------------------:                                                                
+![](Dashboard_analyst.PNG)                      |   ![](Dashboard_scientist.PNG)
 
 Features.
-•	The home, report and estimator buttons are to navigate pages
-•	The data analyst and scientist buttons are to filter the report based on this roles
+- The home, report and estimator buttons are to navigate pages
+- The data analyst and scientist buttons are to filter the report based on this roles
 3.	Estimator page: This is a page I created for fun to give the functionality of getting your expected average salary based on a couple of criteria such as role, experience level, education and country.
-Estimator image
+![]()
 Features
-•	Single gauge chart showing the estimate salary for visual effect.
-•	Filter Menu to select criteria based on personal details
-  You can interact with the report here (power bi publish link)
+- Single gauge chart showing the estimate salary for visual effect.
+- Filter Menu to select criteria based on personal details
+
+  You can interact with the report here (https://app.powerbi.com/view?r=eyJrIjoiMGQxODBlZGMtMGE2Yy00YWJmLWI3MjYtMzQyOWUxMGU2NTc0IiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9)
 
 
 
